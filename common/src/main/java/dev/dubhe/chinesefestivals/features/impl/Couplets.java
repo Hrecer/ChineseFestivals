@@ -9,7 +9,10 @@ import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.decoration.PaintingVariants;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class Couplets extends Feature {
     private static final PaintingVariant COUPLET_LEFT = IFeature.registerPainting("couplet_left", 16, 32);
@@ -40,5 +43,19 @@ public class Couplets extends Feature {
             }
         }
         return null;
+    }
+
+    @Override
+    public Map<String, Supplier<String>> getTranslationReplace() {
+        Map<String, Supplier<String>> map = new HashMap<>();
+        map.put("painting.minecraft.graham.title", () -> "painting.chinesefestivals.couplet_left.title");
+        map.put("painting.minecraft.graham.author", () -> "painting.chinesefestivals.couplet_left.author");
+        map.put("painting.minecraft.wanderer.title", () -> "painting.chinesefestivals.couplet_right.title");
+        map.put("painting.minecraft.wanderer.author", () -> "painting.chinesefestivals.couplet_right.author");
+        map.put("painting.minecraft.creebet.title", () -> "painting.chinesefestivals.couplet_top.title");
+        map.put("painting.minecraft.creebet.author", () -> "painting.chinesefestivals.couplet_top.author");
+        map.put("painting.minecraft.bust.title", () -> "painting.chinesefestivals.couplet_fu.title");
+        map.put("painting.minecraft.bust.author", () -> "painting.chinesefestivals.couplet_fu.author");
+        return map;
     }
 }

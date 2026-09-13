@@ -7,17 +7,19 @@ import dev.dubhe.chinesefestivals.ChineseFestivals;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class BitMap {
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
 
-    public static final double[][] DRAGON = register("dragon.json");
+    public static final double[][] LOONG = register("loong.json");
+    public static final double[][] HORSE = register("horse.json");
 
-
+    @SuppressWarnings("SameParameterValue")
     private static double[][] register(String filename) {
         try (
                 InputStream is = BitMap.class.getClassLoader().getResourceAsStream("assets/chinesefestivals/fireworks/" + filename);
-                InputStreamReader isr = new InputStreamReader(is)
+                InputStreamReader isr = new InputStreamReader(Objects.requireNonNull(is))
         ) {
             int[][] value = GSON.fromJson(isr, int[][].class);
             double[][] result = new double[value.length][2];

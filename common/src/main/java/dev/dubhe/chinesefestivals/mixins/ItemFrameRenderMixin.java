@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.Item;
@@ -21,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 @Mixin(ItemFrameRenderer.class)
@@ -55,7 +53,9 @@ public class ItemFrameRenderMixin {
             Map<Item, Supplier<Item>> itemSupplierMap = feature.get().get3DFoodReplace();
             for (Map.Entry<Item, Supplier<Item>> entry : itemSupplierMap.entrySet()) {
                 if (!itemStack.is(entry.getKey())) continue;
-                itemStack = new ItemStack(Holder.direct(entry.getValue().get()), itemStack.getCount(), Optional.of(itemStack.getOrCreateTag()));
+                ItemStack replaced = new ItemStack(entry.getValue().get(), itemStack.getCount());
+                if (itemStack.hasTag()) replaced.setTag(itemStack.getTag().copy());
+                itemStack = replaced;
             }
         }
         return itemStack;

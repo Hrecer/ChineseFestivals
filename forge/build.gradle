@@ -9,7 +9,9 @@ architectury {
 
 loom {
     forge {
-        mixinConfig "chinesefestivals.mixins.json,chinesefestivals-common.mixins.json"
+        // 逗号分隔的单个字符串会被当成一个文件名传给 -mixin.config，导致开发环境启动即失败，
+        // 这里按多个参数传入，让两个 mixin 配置分别加载。
+        mixinConfig "chinesefestivals.mixins.json", "chinesefestivals-common.mixins.json"
     }
 }
 
